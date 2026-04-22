@@ -26,7 +26,6 @@ import {
 export default function Home() {
   return (
     <div className="bg-black text-white font-sans selection:bg-white selection:text-black overflow-x-hidden">
-      {/* NAVBAR */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/60 backdrop-blur-2xl border-b border-white/[0.04]">
         <div className="max-w-5xl mx-auto px-6 h-12 flex items-center justify-between">
           <Link href="/" className="font-semibold text-sm tracking-tight">
@@ -82,7 +81,6 @@ function HeroSection() {
     <section ref={ref} className="relative min-h-[85vh] flex items-center overflow-hidden">
       <motion.div style={{ opacity, y }} className="relative z-10 max-w-5xl mx-auto px-6 w-full">
         <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16">
-          {/* Photo */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -101,7 +99,6 @@ function HeroSection() {
                 }}
               />
               <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border border-white/10">
-                {/* FIX: pakai foto.jpg sesuai file di /public */}
                 <Image
                   src="/foto.jpg"
                   alt="Syahid Maisya"
@@ -120,7 +117,6 @@ function HeroSection() {
             </div>
           </motion.div>
 
-          {/* Text */}
           <div className="text-center md:text-left">
             <motion.p
               initial={{ opacity: 0, y: 10 }}
@@ -158,8 +154,8 @@ function HeroSection() {
               transition={{ duration: 0.5, delay: 0.6 }}
               className="text-sm text-neutral-400 mt-4 max-w-lg leading-relaxed"
             >
-              I specialize in crafting high-performance web applications with meticulous attention
-              to detail, seamless user experiences, and scalable architecture.
+              I specialize in crafting high-performance web applications with meticulous
+              attention to detail, seamless user experiences, and scalable architecture.
             </motion.p>
 
             <motion.div
@@ -192,13 +188,15 @@ function HeroSection() {
               className="mt-5 flex gap-2 justify-center md:justify-start"
             >
               {[
-                { icon: Github, label: 'GitHub' },
-                { icon: Linkedin, label: 'LinkedIn' },
-                { icon: Mail, label: 'Email' },
-              ].map(({ icon: Icon, label }) => (
+                { icon: Github, label: 'GitHub', href: '<https://github.com/syahidmaisya>' },
+                { icon: Linkedin, label: 'LinkedIn', href: '<https://linkedin.com/in/syahidmaisya>' },
+                { icon: Mail, label: 'Email', href: '<mailto:hello@syahid.dev>' },
+              ].map(({ icon: Icon, label, href }) => (
                 <Link
                   key={label}
-                  href="#"
+                  href={href}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   className="p-2 border border-white/[0.06] rounded-full text-neutral-600 hover:text-white hover:border-white/20 transition-all"
                 >
                   <Icon className="w-3 h-3" />
@@ -272,18 +270,21 @@ function IntroSection() {
     <section ref={ref} className="min-h-[50vh] flex items-center justify-center px-6 py-20">
       <div className="max-w-3xl text-center">
         <p className="text-[10px] text-neutral-600 uppercase tracking-[0.2em] mb-5">— Approach</p>
+
         <p className="text-xl md:text-3xl font-semibold tracking-tight leading-[1.4]">
           {words.map((word, i) => {
             const start = i / words.length;
             const end = start + 1 / words.length;
+
             return (
               <motion.span
                 key={i}
                 style={{
-                  opacity: useTransform(scrollYProgress, [start * 0.7 + 0.15, end * 0.7 + 0.15], [
-                    0.1,
-                    1,
-                  ]),
+                  opacity: useTransform(
+                    scrollYProgress,
+                    [start * 0.7 + 0.15, end * 0.7 + 0.15],
+                    [0.1, 1]
+                  ),
                 }}
                 className="inline-block mr-[0.35em]"
               >
@@ -391,12 +392,15 @@ function ServiceCard({ service, index }: any) {
       className="bg-neutral-950 border border-white/[0.04] rounded-2xl p-6 hover:border-white/10 transition-all group relative overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+
       <div className="relative">
         <div className="w-9 h-9 bg-black border border-white/[0.06] rounded-xl flex items-center justify-center mb-4">
           <Icon className="w-4 h-4 text-white" />
         </div>
+
         <h3 className="text-base font-semibold mb-1.5">{service.title}</h3>
         <p className="text-xs text-neutral-500 leading-relaxed">{service.desc}</p>
+
         <div className="mt-4 text-[10px] text-neutral-600 group-hover:text-white transition-colors flex items-center gap-1">
           Explore <ArrowUpRight className="w-3 h-3" />
         </div>
@@ -412,7 +416,27 @@ function FeaturedProject() {
     target: ref,
     offset: ['start end', 'end start'],
   });
+
   const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
+
+  const secondaryProjects = [
+    {
+      title: 'Premium Konfeksi Platform',
+      tag: 'Mini ERP System',
+      desc: 'Sistem manajemen konveksi berbasis Laravel dengan landing page publik, integrasi WhatsApp, order workflow, finance, payroll, shipping, dan reporting.',
+      img: '/1 (2).png',
+      href: '/projects/project/konfeksi',
+      tech: ['Laravel', 'SQLite', 'Tailwind'],
+    },
+    {
+      title: 'E-Commerce Levis',
+      tag: 'Fashion Commerce',
+      desc: 'Platform e-commerce modern untuk brand fashion dengan pengalaman belanja premium, katalog produk, dan desain antarmuka yang clean.',
+      img: '/Picture1.png',
+      href: '/projects/project/ecommerce-levis',
+      tech: ['Next.js', 'Tailwind', 'Framer Motion'],
+    },
+  ];
 
   return (
     <section className="py-20 border-t border-white/[0.04]">
@@ -425,13 +449,12 @@ function FeaturedProject() {
           </span>
         </h2>
         <p className="text-xs text-neutral-500 mt-3 max-w-md mx-auto leading-relaxed">
-          A curated collection of projects where strategy, design, and engineering come together.
+          A curated collection of digital products across custom apparel, commerce, and
+          business management systems.
         </p>
       </div>
 
       <div className="max-w-5xl mx-auto px-6">
-        {/* Main */}
-        {/* NOTE: kalau kamu pakai route /projects/project/ka-kaos, link ini juga harus kamu samain */}
         <Link href="/projects/project/ka-kaos" className="block group">
           <motion.div
             ref={ref}
@@ -451,17 +474,20 @@ function FeaturedProject() {
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/40 md:block hidden" />
               </div>
 
-              <div className="p-6 md:p-8 flex flex-col justify-center">
+              <div className="p-6 md:p-8 flex flex-col justify-center text-left">
                 <p className="text-[10px] uppercase tracking-[0.15em] text-neutral-500 mb-2">
-                  E-Commerce Platform
-                </p>
-                <h3 className="text-xl md:text-2xl font-bold tracking-tight mb-2">KA-KAOS</h3>
-                <p className="text-xs text-neutral-400 leading-relaxed max-w-sm">
-                  A premium custom apparel marketplace featuring intuitive product customization,
-                  streamlined checkout flow, and real-time order management.
+                  Custom Apparel Platform
                 </p>
 
-                <div className="flex gap-1.5 mt-3">
+                <h3 className="text-xl md:text-2xl font-bold tracking-tight mb-2">KA-KAOS</h3>
+
+                <p className="text-xs text-neutral-400 leading-relaxed max-w-sm">
+                  Platform digital untuk brand custom apparel dengan tampilan modern,
+                  struktur produk yang rapi, dan pengalaman pengguna yang fokus pada
+                  konversi serta branding.
+                </p>
+
+                <div className="flex gap-1.5 mt-3 flex-wrap">
                   {['Laravel', 'MySQL', 'Tailwind'].map((t) => (
                     <span
                       key={t}
@@ -473,7 +499,7 @@ function FeaturedProject() {
                 </div>
 
                 <div className="mt-4 flex items-center gap-1 text-xs text-neutral-500 group-hover:text-white transition-colors">
-                  View Case Study{' '}
+                  View Case Study
                   <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
               </div>
@@ -481,23 +507,9 @@ function FeaturedProject() {
           </motion.div>
         </Link>
 
-        {/* Secondary */}
         <div className="grid md:grid-cols-2 gap-3 mt-3">
-          {[
-            {
-              title: 'Analytics Dashboard',
-              tag: 'SaaS Application',
-              desc: 'Real-time data visualization platform with actionable insights for business decision-making.',
-              img: '/project2.png',
-            },
-            {
-              title: 'Brand Landing Page',
-              tag: 'Marketing Site',
-              desc: 'High-converting landing page engineered for maximum user engagement and lead generation.',
-              img: '/project3.png',
-            },
-          ].map((p, i) => (
-            <ProjectCard key={i} project={p} index={i} />
+          {secondaryProjects.map((project, i) => (
+            <ProjectCard key={i} project={project} index={i} />
           ))}
         </div>
 
@@ -520,30 +532,53 @@ function ProjectCard({ project, index }: any) {
   const inView = useInView(ref, { once: true, margin: '-40px' });
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.4, delay: index * 0.08 }}
-      whileHover={{ y: -3 }}
-      className="bg-neutral-950 border border-white/[0.04] rounded-2xl overflow-hidden hover:border-white/10 transition-all group"
-    >
-      <div className="relative h-32 overflow-hidden">
-        <Image
-          src={project.img}
-          alt={project.title}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-          unoptimized
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/50 to-transparent" />
-      </div>
-      <div className="p-5">
-        <p className="text-[9px] uppercase tracking-[0.15em] text-neutral-600 mb-1">{project.tag}</p>
-        <h4 className="text-sm font-bold mb-1">{project.title}</h4>
-        <p className="text-[11px] text-neutral-500 leading-relaxed">{project.desc}</p>
-      </div>
-    </motion.div>
+    <Link href={project.href} className="block group">
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.4, delay: index * 0.08 }}
+        whileHover={{ y: -3 }}
+        className="bg-neutral-950 border border-white/[0.04] rounded-2xl overflow-hidden hover:border-white/10 transition-all"
+      >
+        <div className="relative h-40 overflow-hidden">
+          <Image
+            src={project.img}
+            alt={project.title}
+            fill
+            className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+            unoptimized
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent" />
+        </div>
+
+        <div className="p-5 text-left">
+          <p className="text-[9px] uppercase tracking-[0.15em] text-neutral-600 mb-1">
+            {project.tag}
+          </p>
+
+          <h4 className="text-sm font-bold mb-1 text-white">{project.title}</h4>
+
+          <p className="text-[11px] text-neutral-500 leading-relaxed mb-3">{project.desc}</p>
+
+          <div className="flex flex-wrap gap-1.5">
+            {project.tech.map((t: string) => (
+              <span
+                key={t}
+                className="text-[9px] px-2 py-0.5 border border-white/[0.06] rounded-full text-neutral-500"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-4 flex items-center gap-1 text-xs text-neutral-500 group-hover:text-white transition-colors">
+            View Case Study
+            <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </div>
+        </div>
+      </motion.div>
+    </Link>
   );
 }
 
@@ -565,7 +600,9 @@ function TechStackSection() {
     <section ref={ref} className="py-20 px-6 border-t border-white/[0.04]">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-10">
-          <p className="text-[10px] text-neutral-600 uppercase tracking-[0.2em] mb-3">Technology</p>
+          <p className="text-[10px] text-neutral-600 uppercase tracking-[0.2em] mb-3">
+            Technology
+          </p>
           <h2 className="text-2xl md:text-4xl font-bold tracking-tight">
             Powered by{' '}
             <span className="bg-gradient-to-r from-white to-neutral-500 bg-clip-text text-transparent">
@@ -573,8 +610,8 @@ function TechStackSection() {
             </span>
           </h2>
           <p className="text-xs text-neutral-500 mt-3 max-w-sm mx-auto leading-relaxed">
-            I leverage the most reliable and performant technologies to build solutions that stand
-            the test of time.
+            I leverage the most reliable and performant technologies to build solutions
+            that stand the test of time.
           </p>
         </div>
 
@@ -605,13 +642,17 @@ function CTASection() {
     target: ref,
     offset: ['start end', 'end start'],
   });
+
   const scale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1]);
   const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
   return (
     <section ref={ref} className="py-28 px-6 border-t border-white/[0.04] relative overflow-hidden">
       <motion.div style={{ scale, opacity }} className="max-w-2xl mx-auto text-center">
-        <motion.div animate={{ rotate: [0, 5, -5, 0] }} transition={{ duration: 4, repeat: Infinity }}>
+        <motion.div
+          animate={{ rotate: [0, 5, -5, 0] }}
+          transition={{ duration: 4, repeat: Infinity }}
+        >
           <Sparkles className="w-6 h-6 mx-auto mb-4 text-neutral-400" />
         </motion.div>
 
@@ -623,11 +664,11 @@ function CTASection() {
         </h2>
 
         <p className="text-xs text-neutral-500 mt-4 max-w-sm mx-auto leading-relaxed">
-          Whether it&apos;s a new product, a redesign, or a complex web application — I&apos;m here to
-          help you build something remarkable. Let&apos;s collaborate.
+          Whether it&apos;s a new product, a redesign, or a complex web application —
+          I&apos;m here to help you build something remarkable. Let&apos;s collaborate.
         </p>
 
-        <div className="mt-7 flex gap-3 justify-center">
+        <div className="mt-7 flex gap-3 justify-center flex-wrap">
           <Link
             href="/contact"
             className="inline-flex items-center gap-2 bg-white text-black font-semibold px-6 py-2.5 rounded-full hover:bg-neutral-200 transition-all text-xs"
@@ -636,7 +677,6 @@ function CTASection() {
             <ArrowUpRight className="w-3.5 h-3.5" />
           </Link>
 
-          {/* FIX: mailto jangan pakai "<mailto:...>" */}
           <a
             href="<mailto:hello@syahid.dev>"
             className="inline-flex items-center gap-2 border border-white/10 px-6 py-2.5 rounded-full hover:border-white/30 hover:bg-white/5 transition-all text-xs text-neutral-400"
@@ -652,7 +692,7 @@ function CTASection() {
   );
 }
 
-/* ============ Footer ============ */
+/* ============ FOOTER ============ */
 function Footer() {
   return (
     <footer className="border-t border-white/[0.04] py-6 px-6">
@@ -665,11 +705,17 @@ function Footer() {
 
         <div className="flex gap-5 text-[10px] text-neutral-600">
           {[
-            { icon: Github, label: 'GitHub' },
-            { icon: Linkedin, label: 'LinkedIn' },
-            { icon: Mail, label: 'Email' },
-          ].map(({ icon: Icon, label }) => (
-            <Link key={label} href="#" className="hover:text-white transition-colors flex items-center gap-1">
+            { icon: Github, label: 'GitHub', href: '<https://github.com/syahidmaisya>' },
+            { icon: Linkedin, label: 'LinkedIn', href: '<https://linkedin.com/in/syahidmaisya>' },
+            { icon: Mail, label: 'Email', href: '<mailto:hello@syahid.dev>' },
+          ].map(({ icon: Icon, label, href }) => (
+            <Link
+              key={label}
+              href={href}
+              target={href.startsWith('http') ? '_blank' : undefined}
+              rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              className="hover:text-white transition-colors flex items-center gap-1"
+            >
               <Icon className="w-3 h-3" /> {label}
             </Link>
           ))}
