@@ -26,33 +26,6 @@ import {
 export default function Home() {
   return (
     <div className="bg-black text-white font-sans selection:bg-white selection:text-black overflow-x-hidden">
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/60 backdrop-blur-2xl border-b border-white/[0.04]">
-        <div className="max-w-5xl mx-auto px-6 h-12 flex items-center justify-between">
-          <Link href="/" className="font-semibold text-sm tracking-tight">
-            Syahid<span className="text-neutral-600">.</span>
-          </Link>
-
-          <div className="hidden md:flex items-center gap-8 text-xs text-neutral-500">
-            {['About', 'Projects', 'Services', 'Blog'].map((item) => (
-              <Link
-                key={item}
-                href={`/${item.toLowerCase()}`}
-                className="hover:text-white transition-colors duration-300"
-              >
-                {item}
-              </Link>
-            ))}
-          </div>
-
-          <Link
-            href="/contact"
-            className="text-xs font-medium text-neutral-400 hover:text-white transition-colors"
-          >
-            Let&apos;s Talk →
-          </Link>
-        </div>
-      </nav>
-
       <HeroSection />
       <MarqueeSection />
       <IntroSection />
@@ -432,7 +405,7 @@ function FeaturedProject() {
       title: 'E-Commerce Levis',
       tag: 'Fashion Commerce',
       desc: 'Platform e-commerce modern untuk brand fashion dengan pengalaman belanja premium, katalog produk, dan desain antarmuka yang clean.',
-      img: '/Picture1.png',
+      img: '/Screenshot.png',
       href: '/projects/project/ecommerce-levis',
       tech: ['Next.js', 'Tailwind', 'Framer Motion'],
     },
