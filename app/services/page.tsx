@@ -108,50 +108,6 @@ const services = [
   },
 ];
 
-export default function ServicesPage() {
-  return (
-    <div className="bg-black text-white font-sans selection:bg-white selection:text-black overflow-x-hidden">
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/60 backdrop-blur-2xl border-b border-white/[0.04]">
-        <div className="max-w-5xl mx-auto px-6 h-12 flex items-center justify-between">
-          <Link href="/" className="font-semibold text-sm tracking-tight">
-            Syahid<span className="text-neutral-600">.</span>
-          </Link>
-
-          <div className="hidden md:flex items-center gap-8 text-xs text-neutral-500">
-            {['About', 'Projects', 'Services', 'Blog'].map((item) => (
-              <Link
-                key={item}
-                href={`/${item.toLowerCase()}`}
-                className={`hover:text-white transition-colors duration-300 ${
-                  item === 'Services' ? 'text-white' : ''
-                }`}
-              >
-                {item}
-              </Link>
-            ))}
-          </div>
-
-          <Link
-            href="/contact"
-            className="text-xs font-medium text-neutral-400 hover:text-white transition-colors"
-          >
-            Let's Talk →
-          </Link>
-        </div>
-      </nav>
-
-      <main className="max-w-5xl mx-auto px-6 pt-28 md:pt-36 pb-20">
-        <HeroSection />
-        <ServicesGrid />
-        <ProcessSection />
-        <CTASection />
-      </main>
-
-      <Footer />
-    </div>
-  );
-}
-
 function HeroSection() {
   return (
     <motion.section
@@ -406,5 +362,17 @@ function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+export default function ServicesPage() {
+  return (
+    <main className="min-h-screen bg-black text-white px-4 md:px-8 py-12 max-w-6xl mx-auto">
+      <HeroSection />
+      <ServicesGrid />
+      <ProcessSection />
+      <CTASection />
+      <Footer />
+    </main>
   );
 }
