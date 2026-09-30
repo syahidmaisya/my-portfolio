@@ -367,12 +367,16 @@ function Footer() {
 
 export default function ServicesPage() {
   return (
-    <main className="min-h-screen bg-black text-white px-4 md:px-8 py-12 max-w-6xl mx-auto">
-      <HeroSection />
-      <ServicesGrid />
-      <ProcessSection />
-      <CTASection />
-      <Footer />
+    // Wrapper luar: W-full & bg-black agar background hitamnya full 100% layar
+    <main className="w-full min-h-screen bg-black text-white">
+      {/* Container dalam: max-w-6xl agar isi konten tetap rapi di tengah */}
+      <div className="max-w-6xl mx-auto px-4 md:px-8 py-12">
+        <HeroSection />
+        <ServicesGrid />
+        <ProcessSection />
+        <CTASection />
+        <Footer />
+      </div>
     </main>
   );
 }
