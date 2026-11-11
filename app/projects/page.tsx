@@ -62,7 +62,7 @@ const projects = [
       'Platform company profile dan sistem pemesanan custom untuk industri konfeksi. Dilengkapi galeri portofolio interaktif dan fitur pelacakan progres produksi baju.',
     tech: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'PostgreSQL'],
     link: '/projects/project/konfeksi',
-    image: '/Screenshot.png', // Ganti dengan gambar website konfeksi kamu kalau ada (misal: '/konfeksi.png')
+    image: '/1 (1).png', // Ganti dengan gambar website konfeksi kamu kalau ada (misal: '/konfeksi.png')
     isFeatured: false,
   },
   {
